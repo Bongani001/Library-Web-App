@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    padding: 10px 5px;
+}
+
+body {
+    background-color: #5CDB95;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    color: #05386B;
+    box-shadow: 1px 1px rgba(8, 43, 107, 0.5);
+    margin-bottom: 20px;
+}
+
+.book-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.book {
+    background-color: #379683;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+fieldset {
+    border: none;
+}
+
+main {
+
+}
+
