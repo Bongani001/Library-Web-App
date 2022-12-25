@@ -42,4 +42,8 @@ let submit = document.querySelector('#info');
 submit.addEventListener("click", cool);
 
 let formCompletion = document.querySelector('.form-completion');
+const addBook = document.querySelector('.add-book');
 
+addBook.addEventListener('click', () => {
+    formCompletion.style.display = 'grid';
+});
