@@ -35,7 +35,35 @@ fieldset {
     border: none;
 }
 
-main {
-
+.form-completion {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: grid;
+    place-content: center;
 }
+
+
+.form-completion form {
+    background-color: #0e7be9;
+    padding: 30px 150px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.user-info {
+    display: grid;
+    margin: 20px;
+}
+
+legend h2 {
+    color: #20dbb6;
+    margin: 10px;
+    font-size: 20px;
+}
+
+
+
+
 
