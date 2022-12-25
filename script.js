@@ -1,45 +1,36 @@
 let myLibrary = [];
 
-function Book() {
-    this.title = title;
+function Book(author, title, pages, read) {
     this.author = author;
+    this.title = title;
     this.pages = pages;
     this.read = read;
-   // this.info = function () {
-    //    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-    //};
 };
 
 function addBookToLibrary() {
-    
+    const theBook = new Book(author.value, title.value, pages.value, read.value);
+    myLibrary.push(theBook);
+    console.log(myLibrary);
+    displayBook();
 };
 
-
-
-let book = document.querySelector('.book');
-let containerCards = document.querySelector('.book-cards');
-
-
-//const theHobbit = new Book();
-//console.log(theHobbit.info());
-//myLibrary.push(theHobbit);
-console.log(myLibrary);
+function displayBook() {
+    myLibrary.forEach(buka => {
+        containerCards.appendChild(buka);
+    });
+};
 
 let author = document.querySelector('#author');
 let title = document.querySelector('#title');
 let pages = document.querySelector('#pages');
 let read = document.querySelector('#read');
 
-function cool() {
-    book.textContent += `Title:`
-    book.textContent += `Auther:`
-    book.textContent += `Name:`
-    book.textContent += `Pages:`
-    containerCards.appendChild(book);
-};
-
 let submit = document.querySelector('#info');
-submit.addEventListener("click", cool);
+submit.addEventListener('click', addBookToLibrary);
+
+
+let book = document.querySelector('.book');
+let containerCards = document.querySelector('.book-cards');
 
 let formCompletion = document.querySelector('.form-completion');
 const addBook = document.querySelector('.add-book');
