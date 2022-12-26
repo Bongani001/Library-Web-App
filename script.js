@@ -1,4 +1,5 @@
 let myLibrary = [];
+let myOtherLibrary = [];
 
 function Book() {
     this.title = title.value;
@@ -11,17 +12,10 @@ function addBookToLibrary() {
     event.preventDefault(); // Prevent the form from submitting data
     const theBook = new Book();
     myLibrary.push(theBook);
+    myOtherLibrary = myLibrary.slice(-1);
     console.log(myLibrary);
-    console.log('coolest thingy ever!');
+    console.log(myOtherLibrary);
     formCompletion.style.display = 'none';
-};
-
-
-for (let ook in myLibrary) {
-    const content = document.createElement('div');
-    content.innerHTML = 'Title: ' + ook.title;
-    content.classList.add('book');
-    containerCards.appendChild(content);
 };
 
 let author = document.querySelector('#author');
@@ -32,9 +26,9 @@ let read = document.querySelector('#read');
 let submit = document.querySelector('#info');
 submit.addEventListener('click', () => {
     addBookToLibrary();
-    for (let ook in myLibrary) {
+    for (let ook in myOtherLibrary) { // Display content in html
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read;
+        content.innerHTML = 'Title: ' + myOtherLibrary[ook].title + '<br>' + 'Author: ' + myOtherLibrary[ook].author + '<br>' + 'Pages: ' + myOtherLibrary[ook].pages + '<br>' + 'Read: ' + myOtherLibrary[ook].read;
         content.classList.add('book');
         containerCards.appendChild(content);
     };
