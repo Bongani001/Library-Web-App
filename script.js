@@ -1,23 +1,24 @@
 let myLibrary = [];
 
-function Book(author, title, pages, read) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
+function Book() {
+    this.author = author.value;
+    this.title = title.value;
+    this.pages = pages.value;
+    this.read = read.value;
 };
 
 function addBookToLibrary() {
-    const theBook = new Book(author.value, title.value, pages.value, read.value);
+    event.preventDefault(); // Prevent the form from submitting data
+    const theBook = new Book();
     myLibrary.push(theBook);
     console.log(myLibrary);
-    displayBook();
+    console.log('coolest thingy ever!');
+    formCompletion.style.display = 'none';
 };
 
-function displayBook() {
-    myLibrary.forEach(buka => {
-        containerCards.appendChild(buka);
-    });
+
+for (let ook in myLibrary) {
+    
 };
 
 let author = document.querySelector('#author');
