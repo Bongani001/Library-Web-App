@@ -34,7 +34,7 @@ submit.addEventListener('click', () => {
     addBookToLibrary();
     for (let ook in myLibrary) {
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + ook.title;
+        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read;
         content.classList.add('book');
         containerCards.appendChild(content);
     };
