@@ -19,11 +19,23 @@ function addBookToLibrary() {
 function displayBooks() { 
     for (let ook in myLibrary) { 
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read;
-        content.classList.add('book') + '<br>';
+        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read + '<br>';
+        content.classList.add('book');
         containerCards.appendChild(content);
+        // Create a remove button
+        const removebtn = document.createElement('button');
+        removebtn.classList.add('remove-btn');
+        removebtn.innerHTML = 'Remove';
+        content.appendChild(removebtn);
     };
 };
+
+const removebtn = document.querySelectorAll('.remove-btn');
+removebtn.forEach(button => {
+    button.addEventListener('click', () => {
+    button.parentElement.remove();
+    });
+});
 
 let author = document.querySelector('#author');
 let title = document.querySelector('#title');
@@ -48,3 +60,5 @@ const addBook = document.querySelector('.add-book');
 addBook.addEventListener('click', () => {
     formCompletion.style.display = 'grid';
 });
+
+//
