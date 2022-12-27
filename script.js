@@ -33,7 +33,7 @@ function displayBooks() {
 const removebtn = document.querySelectorAll('.remove-btn');
 removebtn.forEach(button => {
     button.addEventListener('click', () => {
-    button.parentElement.remove();
+        button.parentElement.remove();
     });
 });
 
