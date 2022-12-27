@@ -27,15 +27,11 @@ function displayBooks() {
         removebtn.classList.add('remove-btn');
         removebtn.innerHTML = 'Remove';
         content.appendChild(removebtn);
+        removebtn.addEventListener('click', () => {
+            removebtn.parentElement.remove();
+        });
     };
 };
-
-const removebtn = document.querySelectorAll('.remove-btn');
-removebtn.forEach(button => {
-    button.addEventListener('click', () => {
-        button.parentElement.remove();
-    });
-});
 
 let author = document.querySelector('#author');
 let title = document.querySelector('#title');
