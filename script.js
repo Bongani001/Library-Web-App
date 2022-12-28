@@ -17,10 +17,12 @@ function addBookToLibrary() {
 
 // Display content in html
 function displayBooks() { 
+    let i = 0;
     for (let ook in myLibrary) { 
         const content = document.createElement('div');
         content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read + '<br>';
         content.classList.add('book');
+        content.dataset.childnum = i;
         containerCards.appendChild(content);
         // Create a remove button
         const removebtn = document.createElement('button');
@@ -28,8 +30,11 @@ function displayBooks() {
         removebtn.innerHTML = 'Remove';
         content.appendChild(removebtn);
         removebtn.addEventListener('click', () => {
+            let deleteNum = removebtn.parentElement.dataset.childnum;
+            myLibrary.splice(deleteNum, 1);
             removebtn.parentElement.remove();
         });
+        i++;
     };
 };
 
