@@ -8,11 +8,9 @@ function Book() {
 };
 
 function addBookToLibrary() {
-    event.preventDefault(); // Prevent the form from submitting data
     const theBook = new Book();
     myLibrary.push(theBook);
     console.log(myLibrary);
-    formCompletion.style.display = 'none';
 };
 
 // Display content in html
@@ -33,15 +31,15 @@ function displayBooks() {
         const toggle = document.createElement('div');
         toggle.classList.add('toggle-container');
         content.appendChild(toggle);
-        const innerCircle = document.createElement('div');
-        innerCircle.classList.add('inner-circle');
-        toggle.appendChild(innerCircle);
+        //const innerCircle = document.createElement('div');
+        //innerCircle.classList.add('inner-circle');
+        toggle.innerHTML = 'Update';
+        //toggle.appendChild(innerCircle);
         
 
         toggle.addEventListener('click', () => {
             toggle.classList.toggle('active');
             let nmbr = toggle.parentElement.dataset.childnum;
-            console.log(nmbr);
             if (toggle.classList.contains('active')) {
                 myLibrary[ook].read = 'Yes';
                 status.innerHTML = myLibrary[ook].read;
@@ -72,9 +70,11 @@ let read = document.querySelector('#read');
 
 let submit = document.querySelector('#info');
 submit.addEventListener('click', () => {
+    event.preventDefault(); // Prevent the form from submitting data
     addBookToLibrary();
     containerCards.innerHTML = '';
     displayBooks();
+    formCompletion.style.display = 'none';
 });
 
 

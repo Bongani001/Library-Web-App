@@ -17,36 +17,25 @@
             <button class="add-book">Add Book</button>
         </div>
         <section class="form-completion">
-            <form>
+            <form action="#" method="post">
                 <legend><h2>Please fill in the form <br>to add the book you want</h2></legend>
                 <hr>
                 <fieldset class="user-info">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" name="title">
+                    <input type="text" id="title" name="title" required>
                     <br>
                     <label for="author">Author:</label>
-                    <input type="text" id="author" name="author">
+                    <input type="text" id="author" name="author" required>
                     <br>
                     <label for="pages">Number of pages:</label>
-                    <input type="number" id="pages" name="pages">
+                    <input type="number" id="pages" name="pages" required>
                     <br>
-                    <button id="info">Submit</button>
+                    <button type='submit' id="info">Submit</button>
                 </fieldset>
             </form>
         </section>
         <section class="book-cards">
             <!------THIS IS WHERE THE BOOK INFORMATION WILL BE PLACED AS CARDS------>
-            <div class="book">
-                Title: <br>
-                Author: <br>
-                Pages: <br>
-                Read:
-                <div class="toggle-container">
-                    <div class="inner-circle"></div>
-                </div>
-                <br>
-                <button class="remove-btn">Remove</button>
-            </div>
         </section>
     </main>
 </body>
