@@ -4,7 +4,7 @@ function Book() {
     this.title = title.value;
     this.author = author.value;
     this.pages = pages.value;
-    this.read = read.value;
+    this.read = 'No';
 };
 
 function addBookToLibrary() {
@@ -20,7 +20,7 @@ function displayBooks() {
     let i = 0;
     for (let ook in myLibrary) { 
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ' + myLibrary[ook].read + '<br>';
+        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + '<span class=\'read-text\'>Read: No</span>' + '<br>' + toggleBtn + '<br>';
         content.classList.add('book');
         content.dataset.childnum = i;
         containerCards.appendChild(content);
@@ -33,6 +33,18 @@ function displayBooks() {
             let deleteNum = removebtn.parentElement.dataset.childnum;
             myLibrary.splice(deleteNum, 1);
             removebtn.parentElement.remove();
+        });
+
+        // Create an onclick event for toggle button
+        let toggle = document.querySelector('.toggle-container');
+
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            if (toggle.classList.contains('active')) {
+                document.querySelector('.read-text').innerHTML = 'Read: Yes';
+            } else {
+                document.querySelector('.read-text').innerHTML = 'Read: No';
+            };
         });
         i++;
     };
@@ -62,4 +74,18 @@ addBook.addEventListener('click', () => {
     formCompletion.style.display = 'grid';
 });
 
-//
+let toggle = document.querySelector('.toggle-container');
+
+toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    if (toggle.classList.contains('active')) {
+        myLibrary[Book].read = 'Yes';
+    }
+    
+});
+
+let toggleBtn = '<div class=\"toggle-container">\
+<div class="inner-circle"></div>\
+</div>\
+<br>\
+<button class="remove-btn">Remove</button>'

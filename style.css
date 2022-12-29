@@ -40,7 +40,9 @@ nav {
 .book {
     background-color: #379683;
     padding: 20px 10px;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 fieldset {
@@ -102,6 +104,39 @@ input:focus {
     border: none;
     background-color: #5CDB95;
     color: #fff;
+}
+
+.toggle-container {
+    display: inline-block;
+    background: rgb(236, 121, 121);
+    height: 20px;
+    width: 50px;
+    margin: 0 auto;
+    padding: 1px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.inner-circle {
+    background: #fff;
+    height: 20px;
+    width: 20px;
+    margin: 0px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.toggle-container.active .inner-circle {
+    margin-left: 30px;
+}
+
+.toggle-container.active {
+    background: #05386B;
+}
+
+.read-text {
+    margin: 0px;
+    padding: 0px;
 }
 
 .remove-btn {
