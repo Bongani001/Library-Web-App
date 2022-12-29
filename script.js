@@ -80,5 +80,4 @@ let toggle = document.querySelector('.toggle-container');
 let toggleBtn = '<div class=\"toggle-container">\
 <div class="inner-circle"></div>\
 </div>\
-<br>\
-<button class="remove-btn">Remove</button>'
+<br>'
