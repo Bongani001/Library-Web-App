@@ -53,6 +53,7 @@ fieldset {
     position: absolute;
     height: 100vh;
     width: 100vw;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.6);
     display: none;
     place-content: center;

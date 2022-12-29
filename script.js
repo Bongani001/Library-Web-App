@@ -20,10 +20,37 @@ function displayBooks() {
     let i = 0;
     for (let ook in myLibrary) { 
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + '<span class=\'read-text\'>Read: No</span>' + '<br>' + toggleBtn + '<br>';
+        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ';
         content.classList.add('book');
         content.dataset.childnum = i;
         containerCards.appendChild(content);
+
+        let status = document.createElement('div');
+        status.innerHTML = myLibrary[ook].read;
+        content.appendChild(status);
+
+        // Create an onclick event for toggle button
+        const toggle = document.createElement('div');
+        toggle.classList.add('toggle-container');
+        content.appendChild(toggle);
+        const innerCircle = document.createElement('div');
+        innerCircle.classList.add('inner-circle');
+        toggle.appendChild(innerCircle);
+        
+
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            let nmbr = toggle.parentElement.dataset.childnum;
+            console.log(nmbr);
+            if (toggle.classList.contains('active')) {
+                myLibrary[ook].read = 'Yes';
+                status.innerHTML = myLibrary[ook].read;
+            } else {
+                myLibrary[ook].read = 'No';
+                status.innerHTML = myLibrary[ook].read;
+            };
+        });
+
         // Create a remove button
         const removebtn = document.createElement('button');
         removebtn.classList.add('remove-btn');
@@ -33,18 +60,6 @@ function displayBooks() {
             let deleteNum = removebtn.parentElement.dataset.childnum;
             myLibrary.splice(deleteNum, 1);
             removebtn.parentElement.remove();
-        });
-
-        // Create an onclick event for toggle button
-        let toggle = document.querySelector('.toggle-container');
-
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('active');
-            if (toggle.classList.contains('active')) {
-                document.querySelector('.read-text').innerHTML = 'Read: Yes';
-            } else {
-                document.querySelector('.read-text').innerHTML = 'Read: No';
-            };
         });
         i++;
     };
@@ -64,7 +79,7 @@ submit.addEventListener('click', () => {
 
 
 
-let book = document.querySelector('.book');
+//let book = document.querySelector('.book');
 let containerCards = document.querySelector('.book-cards');
 
 let formCompletion = document.querySelector('.form-completion');
