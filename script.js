@@ -76,14 +76,7 @@ addBook.addEventListener('click', () => {
 
 let toggle = document.querySelector('.toggle-container');
 
-toggle.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    if (toggle.classList.contains('active')) {
-        myLibrary[Book].read = 'Yes';
-    }
-    
-});
-
+// Create inner HTML for the toggle button for reference 
 let toggleBtn = '<div class=\"toggle-container">\
 <div class="inner-circle"></div>\
 </div>\
