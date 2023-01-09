@@ -13,7 +13,7 @@ function addBookToLibrary() {
     console.log(myLibrary);
 };
 
-// Display content in html
+// function to Display content in html
 function displayBooks() { 
     let i = 0;
     for (let ook in myLibrary) { 
@@ -73,7 +73,7 @@ submit.addEventListener('click', () => {
     event.preventDefault(); // Prevent the form from submitting data
     addBookToLibrary();
     containerCards.innerHTML = '';
-    displayBooks();
+    displayBooks(); // Display content in html
     formCompletion.style.display = 'none';
 });
 
