@@ -71,7 +71,6 @@ let read = document.querySelector('#read');
 
 let submit = document.querySelector('#info');
 submit.addEventListener('click', () => {
-    event.preventDefault(); // Prevent the form from submitting data
     let libraryLength = myLibrary['length'];
     if ((title.value && author.value && pages.value) === '') {
         return
@@ -80,6 +79,7 @@ submit.addEventListener('click', () => {
     containerCards.innerHTML = '';
     displayBooks(); // Display content in html
     formCompletion.style.display = 'none';
+    event.preventDefault(); // Prevent the form from submitting data
 });
 
 
