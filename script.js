@@ -23,6 +23,7 @@ function displayBooks() {
         content.dataset.childnum = i;
         containerCards.appendChild(content);
 
+        // Create yes/no div
         let status = document.createElement('div');
         status.innerHTML = myLibrary[ook].read;
         content.appendChild(status);
@@ -71,6 +72,10 @@ let read = document.querySelector('#read');
 let submit = document.querySelector('#info');
 submit.addEventListener('click', () => {
     event.preventDefault(); // Prevent the form from submitting data
+    let libraryLength = myLibrary['length'];
+    if ((title.value && author.value && pages.value) === '') {
+        return
+    };
     addBookToLibrary();
     containerCards.innerHTML = '';
     displayBooks(); // Display content in html

@@ -44,6 +44,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #fff;
 }
 
 fieldset {
@@ -117,6 +118,8 @@ input:focus {
     /* padding: 1px; */
     border-radius: 10px;
     cursor: pointer;
+    color: black;
+    margin: 5px 0;
 }
 
 .inner-circle {
