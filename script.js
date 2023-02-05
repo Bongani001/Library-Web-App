@@ -18,14 +18,14 @@ function displayBooks() {
     let i = 0;
     for (let ook in myLibrary) { 
         const content = document.createElement('div');
-        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br>' + 'Author: ' + myLibrary[ook].author + '<br>' + 'Pages: ' + myLibrary[ook].pages + '<br>' + 'Read: ';
+        content.innerHTML = 'Title: ' + myLibrary[ook].title + '<br><br>' + 'Author: ' + myLibrary[ook].author + '<br><br>' + 'Pages: ' + myLibrary[ook].pages + '<br><br>';
         content.classList.add('book');
         content.dataset.childnum = i;
         containerCards.appendChild(content);
 
         // Create yes/no div
-        let status = document.createElement('div');
-        status.innerHTML = myLibrary[ook].read;
+        let status = document.createElement('span');
+        status.innerHTML = `Read: ${myLibrary[ook].read} <br><br>`;
         content.appendChild(status);
 
         // Create an onclick event for toggle button
@@ -43,10 +43,10 @@ function displayBooks() {
             let nmbr = toggle.parentElement.dataset.childnum;
             if (toggle.classList.contains('active')) {
                 myLibrary[ook].read = 'Yes';
-                status.innerHTML = myLibrary[ook].read;
+                status.innerHTML = `Read : ${myLibrary[ook].read} <br><br>`;
             } else {
                 myLibrary[ook].read = 'No';
-                status.innerHTML = myLibrary[ook].read;
+                status.innerHTML = `Read : ${myLibrary[ook].read} <br><br>`;
             };
         });
 
