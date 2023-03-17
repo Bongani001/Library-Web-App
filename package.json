@@ -1,0 +1,15 @@
+{
+  "name": "library-web-app",
+  "version": "1.0.0",
+  "description": "A book library app that stores information about different types of books.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.18.0"
+  }
+}

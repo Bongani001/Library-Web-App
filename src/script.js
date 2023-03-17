@@ -1,3 +1,28 @@
+import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, collection } from "firebase/firestore";
+
+const firebaseApp = initializeApp({
+    apiKey: "AIzaSyDiKEt3uUSRC41vBI3TA3PGT5lTsjANWKc",
+    authDomain: "book-library-01.firebaseapp.com",
+    projectId: "book-library-01",
+    storageBucket: "book-library-01.appspot.com",
+    messagingSenderId: "608960923658",
+    appId: "1:608960923658:web:ad439a3e94e93df40377f3"
+});
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
+const books = collection(db, "books");
+
+onAuthStateChanged(auth, user => {
+    if (user !== null) {
+        console.log("Logged in!");
+    } else {
+        console.log("No user");
+    }
+})
+
+
 let myLibrary = [];
 
 function Book() {
