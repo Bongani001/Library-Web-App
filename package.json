@@ -2,8 +2,9 @@
   "name": "library-web-app",
   "version": "1.0.0",
   "description": "A book library app that stores information about different types of books.",
-  "main": "script.js",
+  "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,5 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^9.18.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.76.2",
+    "webpack-cli": "^5.0.1"
   }
 }
