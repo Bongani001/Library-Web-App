@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut, } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 
 const firebaseApp = initializeApp({
@@ -20,7 +24,7 @@ onAuthStateChanged(auth, user => {
     } else {
         console.log("No user");
     }
-})
+});
 
 
 let myLibrary = [];
