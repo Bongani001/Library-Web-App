@@ -5,6 +5,9 @@ import { getAuth,
     signInWithPopup,
     signOut, } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
+import "./style.css";
+
+
 
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyDiKEt3uUSRC41vBI3TA3PGT5lTsjANWKc",
@@ -22,9 +25,22 @@ onAuthStateChanged(auth, user => {
     if (user !== null) {
         console.log("Logged in!");
     } else {
-        console.log("No user");
+        console.log("No user logged");
     }
 });
+
+// Signs-in Book Library.
+async function signIn() {
+    // Sign in Firebase using popup auth and Google as the identity provider.
+    var provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+}
+
+// Signs-out of Book Library.
+function signOutUser() {
+    // Sign out of Firebase.
+    signOut(auth);
+}
 
 
 let myLibrary = [];
