@@ -1,44 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Library | Gelo</title>
-<script defer src="bundle.js"></script><link href="style.css" rel="stylesheet"></head>
-<body>
-    <nav>
-        <h1 class="logo">Library App</h1>
-        <div class="log-status-viewer">
-            <h4 class="user-name"></h4>
-            <button class="log-status-button">Login</button>
-        </div>
-    </nav>
-    <main>
-        <div class="add-book-button">
-            <button class="add-book">Add Book</button>
-        </div>
-        <section class="form-completion">
-            <form>
-                <legend><h2>Please fill in the form <br>to add the book you want</h2></legend>
-                <hr>
-                <fieldset class="user-info">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" required>
-                    <br>
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" name="author" required>
-                    <br>
-                    <label for="pages">Number of pages:</label>
-                    <input type="number" id="pages" name="pages" required>
-                    <br>
-                    <button id="info">Submit</button>
-                </fieldset>
-            </form>
-        </section>
-        <section class="book-cards">
-            <!------THIS IS WHERE THE BOOK INFORMATION WILL BE PLACED AS CARDS------>
-        </section>
-    </main>
-</body>
-</html>
+<head><script defer src="bundle.js"></script></head>Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module not found: Error: Can't resolve '/home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/html  -webpack-plugin/lib/loader.js' in '/home/bongani/Desktop/TOP/Javascript/library-web-app'
+  ModuleNotFoundError: Module not found: Error: Can't resolve '/home/bongani/Desktop/TOP/Javascript/library-web-  app/node_modules/html-webpack-plugin/lib/loader.js' in '/home/bongani/Desktop/TOP/Javascript/library-web-app'
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/Compilation.js:2016:28
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/NormalModuleFactory.js:79  8:13
+      at eval (eval at create (/home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/tapable/lib/Hoo  kCodeFactory.js:33:10), <anonymous>:10:1)
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/NormalModuleFactory.js:27  0:22
+      at eval (eval at create (/home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/tapable/lib/Hoo  kCodeFactory.js:33:10), <anonymous>:9:1)
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/NormalModuleFactory.js:43  4:22
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/NormalModuleFactory.js:12  0:11
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/webpack/lib/NormalModuleFactory.js:63  5:23
+      at /home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/neo-async/async.js:2830:7
+      at done (/home/bongani/Desktop/TOP/Javascript/library-web-app/node_modules/neo-async/async.js:2925:13)
+  
+  - Compilation.js:2016 
+    [library-web-app]/[webpack]/lib/Compilation.js:2016:28
+  
+  - NormalModuleFactory.js:798 
+    [library-web-app]/[webpack]/lib/NormalModuleFactory.js:798:13
+  
+  
+  - NormalModuleFactory.js:270 
+    [library-web-app]/[webpack]/lib/NormalModuleFactory.js:270:22
+  
+  
+  - NormalModuleFactory.js:434 
+    [library-web-app]/[webpack]/lib/NormalModuleFactory.js:434:22
+  
+  - NormalModuleFactory.js:120 
+    [library-web-app]/[webpack]/lib/NormalModuleFactory.js:120:11
+  
+  - NormalModuleFactory.js:635 
+    [library-web-app]/[webpack]/lib/NormalModuleFactory.js:635:23
+  
+  - async.js:2830 
+    [library-web-app]/[neo-async]/async.js:2830:7
+  
+  - async.js:2925 done
+    [library-web-app]/[neo-async]/async.js:2925:13
+  
+  - child-compiler.js:169 
+    [library-web-app]/[html-webpack-plugin]/lib/child-compiler.js:169:18
+  
+  - Compiler.js:551 finalCallback
+    [library-web-app]/[webpack]/lib/Compiler.js:551:5
+  
+  - Compiler.js:577 
+    [library-web-app]/[webpack]/lib/Compiler.js:577:11
+  
+  - Compiler.js:1196 
+    [library-web-app]/[webpack]/lib/Compiler.js:1196:17
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [library-web-app]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:1192 
+    [library-web-app]/[webpack]/lib/Compiler.js:1192:33
+  
+  - Compilation.js:2787 finalCallback
+    [library-web-app]/[webpack]/lib/Compilation.js:2787:11
+  
+  - Compilation.js:3092 
+    [library-web-app]/[webpack]/lib/Compilation.js:3092:11
+  
+  
+</pre>
