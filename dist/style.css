@@ -28,6 +28,12 @@ nav {
     padding: 0 10px;
 }
 
+.log-status-viewer {
+    display: flex;
+    place-items: center;
+    gap: 5px;
+}
+
 .log-status-button {
     border-style: none;
     border-radius: 5px;

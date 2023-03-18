@@ -6,6 +6,10 @@ module.exports = {
     mode: 'development',
     devtool: 'eval-source-map',
     entry: './src/index.js',
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: 'bundle.js'
+    },
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/index.html",
@@ -14,10 +18,6 @@ module.exports = {
         filename: "style.css",
       }),
     ],
-    output: {
-      path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
-    },
     module: {
       rules: [
         {

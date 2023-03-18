@@ -21,14 +21,6 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const books = collection(db, "books");
 
-onAuthStateChanged(auth, user => {
-    if (user !== null) {
-        console.log("Logged in!");
-    } else {
-        console.log("No user logged");
-    }
-});
-
 // Signs-in Book Library.
 async function signIn() {
     // Sign in Firebase using popup auth and Google as the identity provider.
@@ -42,6 +34,43 @@ function signOutUser() {
     signOut(auth);
 }
 
+// Initialize firebase auth
+function initFirebaseAuth() {
+    // Listen to auth state changes.
+    onAuthStateChanged(auth, user => {
+        if (user !== null) {
+            console.log("Logged in!");
+            logButton.textContent = "Logout";
+            let userAccountName = getUserName();
+            userName.textContent = userAccountName;
+        } else {
+            console.log("No user");
+            logButton.textContent = "Login";
+            userName.textContent = "";
+        }
+    });
+};
+
+// Returns the signed-in user's display name.
+function getUserName() {
+    return auth.currentUser.displayName;
+}
+
+// Returns true if a user is signed-in.
+function isUserSignedIn() {
+    return !!auth.currentUser;
+}
+
+const userName = document.querySelector(".user-name");
+const logButton = document.querySelector(".log-status-button");
+
+logButton.addEventListener("click", () => {
+    if (!isUserSignedIn) {
+        signIn();
+    } else {
+        signOutUser();
+    }
+});
 
 let myLibrary = [];
 
@@ -135,6 +164,7 @@ let containerCards = document.querySelector('.book-cards');
 let formCompletion = document.querySelector('.form-completion');
 const addBook = document.querySelector('.add-book');
 
+// Display a form for inputing info about a book
 addBook.addEventListener('click', () => {
     formCompletion.style.display = 'grid';
 });
@@ -146,3 +176,5 @@ let toggleBtn = '<div class=\"toggle-container">\
 <div class="inner-circle"></div>\
 </div>\
 <br>'
+
+initFirebaseAuth();
