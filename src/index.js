@@ -26,13 +26,13 @@ async function signIn() {
     // Sign in Firebase using popup auth and Google as the identity provider.
     var provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
-}
+};
 
 // Signs-out of Book Library.
 function signOutUser() {
     // Sign out of Firebase.
     signOut(auth);
-}
+};
 
 // Initialize firebase auth
 function initFirebaseAuth() {
@@ -65,10 +65,15 @@ const userName = document.querySelector(".user-name");
 const logButton = document.querySelector(".log-status-button");
 
 logButton.addEventListener("click", () => {
-    if (!isUserSignedIn) {
+    // console.log(!isUserSignedIn());
+    let userStatus = !isUserSignedIn();
+    if (userStatus) {
         signIn();
+        console.log("cool user")
     } else {
         signOutUser();
+        console.log("cool")
+
     }
 });
 

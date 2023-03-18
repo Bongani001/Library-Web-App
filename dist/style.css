@@ -39,6 +39,7 @@ nav {
     border-radius: 5px;
     padding: 5px 10px;
     background-color: orange;
+    cursor: pointer;
 }
 
 .add-book {
@@ -50,6 +51,7 @@ nav {
     border: none;
     background-color: #05386B;
     color: #fff;
+    cursor: pointer;
 }
 
 .book-cards {
