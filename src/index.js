@@ -14,8 +14,8 @@ import { getFirestore,
     setDoc,
     updateDoc,
     doc,
-    serverTimestamp,
-    getDoc, } from "firebase/firestore";
+    serverTimestamp, 
+    getDocs} from "firebase/firestore";
 import "./style.css";
 
 
@@ -54,10 +54,13 @@ function initFirebaseAuth() {
             logButton.textContent = "Logout";
             let userAccountName = getUserName();
             userName.textContent = userAccountName;
+            containerCards.innerHTML = '';
+            getUserBooks();
         } else {
             console.log("No user");
             logButton.textContent = "Login";
             userName.textContent = "";
+            containerCards.innerHTML = '';
         }
     });
 };
@@ -82,6 +85,7 @@ logButton.addEventListener("click", () => {
         signIn();
     } else {
         signOutUser();
+        containerCards.innerHTML = '';
     }
 });
 
@@ -184,7 +188,7 @@ submit.addEventListener('click', (e) => {
     };
     addBookToLibrary();
     containerCards.innerHTML = '';
-    displayBooks(); // Display content in html
+    getUserBooks() // Display content in html
     formCompletion.style.display = 'none';
     e.preventDefault(); // Prevent the form from submitting data
 });
@@ -210,4 +214,65 @@ let toggleBtn = '<div class=\"toggle-container">\
 </div>\
 <br>'
 
+async function getUserBooks() {
+    let userStatus = isUserSignedIn();
+    if (userStatus) {
+        let userBooks = await getDocs(query(books, orderBy("timestamp")));
+        let i = 0;
+        userBooks.forEach(book => {
+            let userBook = book.data();
+            console.log(userBook.author, userBook.title, userBook.pages, userBook.read);
+            createBookCard(userBook.author, userBook.title, userBook.pages, userBook.read, i)
+        });
+    }
+}
+// getUserBooks();
+
 initFirebaseAuth();
+
+function createBookCard(author, title, pages, read, i) {
+    const content = document.createElement('div');
+    content.innerHTML = 'Title: ' + title + '<br><br>' + 'Author: ' + author + '<br><br>' + 'Pages: ' + pages + '<br><br>';
+    content.classList.add('book');
+    content.dataset.childnum = i;
+    containerCards.appendChild(content);
+
+    // Create yes/no div
+    let status = document.createElement('span');
+    status.innerHTML = `Read: ${read} <br><br>`;
+    content.appendChild(status);
+
+    // Create an onclick event for toggle button
+    const toggle = document.createElement('div');
+    toggle.classList.add('toggle-container');
+    content.appendChild(toggle);
+    //const innerCircle = document.createElement('div');
+    //innerCircle.classList.add('inner-circle');
+    toggle.innerHTML = 'Update';
+    //toggle.appendChild(innerCircle);
+    
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        let nmbr = toggle.parentElement.dataset.childnum;
+        if (toggle.classList.contains('active')) {
+            read = 'Yes';
+            status.innerHTML = `Read : ${read} <br><br>`;
+        } else {
+            read = 'No';
+            status.innerHTML = `Read : ${read} <br><br>`;
+        };
+    });
+
+    // Create a remove button
+    const removebtn = document.createElement('button');
+    removebtn.classList.add('remove-btn');
+    removebtn.innerHTML = 'Remove';
+    content.appendChild(removebtn);
+    removebtn.addEventListener('click', () => {
+        let deleteNum = removebtn.parentElement.dataset.childnum;
+        // myLibrary.splice(deleteNum, 1);
+        removebtn.parentElement.remove();
+    });
+    i++;
+}
