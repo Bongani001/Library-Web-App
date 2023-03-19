@@ -4,7 +4,18 @@ import { getAuth,
     GoogleAuthProvider,
     signInWithPopup,
     signOut, } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore, 
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    setDoc,
+    updateDoc,
+    doc,
+    serverTimestamp,
+    getDoc, } from "firebase/firestore";
 import "./style.css";
 
 
@@ -69,11 +80,8 @@ logButton.addEventListener("click", () => {
     let userStatus = !isUserSignedIn();
     if (userStatus) {
         signIn();
-        console.log("cool user")
     } else {
         signOutUser();
-        console.log("cool")
-
     }
 });
 
@@ -87,10 +95,30 @@ function Book() {
 };
 
 function addBookToLibrary() {
-    const theBook = new Book();
-    myLibrary.push(theBook);
-    console.log(myLibrary);
+    let userStatus = isUserSignedIn();
+    if (userStatus) {
+        let theBook = new Book();
+        myLibrary.push(theBook);
+        // console.log(myLibrary);
+        console.log({...theBook});
+        saveBook(theBook);
+    } else {
+        alert("Login first before submitting your book information");
+    };
 };
+
+async function saveBook(bookData) {
+    try {
+        await addDoc(books, {
+          name: getUserName(),
+          ...bookData,
+          timestamp: serverTimestamp()
+        });
+      }
+      catch(error) {
+        console.error('Error writing new book information to Firebase Database', error);
+      }
+}
 
 // function to Display content in html
 function displayBooks() { 
@@ -149,7 +177,7 @@ let pages = document.querySelector('#pages');
 let read = document.querySelector('#read');
 
 let submit = document.querySelector('#info');
-submit.addEventListener('click', () => {
+submit.addEventListener('click', (e) => {
     let libraryLength = myLibrary['length'];
     if ((title.value && author.value && pages.value) === '') {
         return
@@ -158,7 +186,7 @@ submit.addEventListener('click', () => {
     containerCards.innerHTML = '';
     displayBooks(); // Display content in html
     formCompletion.style.display = 'none';
-    event.preventDefault(); // Prevent the form from submitting data
+    e.preventDefault(); // Prevent the form from submitting data
 });
 
 
