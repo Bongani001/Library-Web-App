@@ -9,13 +9,13 @@ import { getFirestore,
     addDoc,
     query,
     orderBy,
-    limit,
     onSnapshot,
     setDoc,
     updateDoc,
     doc,
     serverTimestamp, 
-    getDocs} from "firebase/firestore";
+    getDocs,
+    deleteDoc} from "firebase/firestore";
 import "./style.css";
 
 
@@ -78,6 +78,7 @@ function isUserSignedIn() {
 const userName = document.querySelector(".user-name");
 const logButton = document.querySelector(".log-status-button");
 
+// Sign-In/Sign-Out button
 logButton.addEventListener("click", () => {
     // console.log(!isUserSignedIn());
     let userStatus = !isUserSignedIn();
@@ -86,6 +87,7 @@ logButton.addEventListener("click", () => {
     } else {
         signOutUser();
         containerCards.innerHTML = '';
+        window.open('https://mail.google.com/a/YOURDOMAIN.IN/?logout&hl=en','logout_from_google','width=600,height=300,menubar=no,status=no,location=no,toolbar=no,scrollbars=no,top=20,left=20');
     }
 });
 
@@ -111,6 +113,8 @@ function addBookToLibrary() {
     };
 };
 
+
+// Add/Save Book Information to the Firestore Database
 async function saveBook(bookData) {
     try {
         await addDoc(books, {
@@ -122,6 +126,25 @@ async function saveBook(bookData) {
       catch(error) {
         console.error('Error writing new book information to Firebase Database', error);
       }
+};
+
+async function getUserBooks() {
+    let userStatus = isUserSignedIn();
+    if (userStatus) {
+        let userBooks = await getDocs(query(books, orderBy("timestamp")));
+        let i = 0;
+        userBooks.forEach(book => {
+            let userBook = book.data();
+            createBookCard(book.id, userBook.author, userBook.title, userBook.pages, userBook.read, i)
+            i++;
+        });
+    }
+};
+
+// Delete a book from the firestore Database
+async function deleteBook(id) {
+    const bookRef = doc(books, id);
+    deleteDoc(bookRef);
 }
 
 // function to Display content in html
@@ -214,27 +237,15 @@ let toggleBtn = '<div class=\"toggle-container">\
 </div>\
 <br>'
 
-async function getUserBooks() {
-    let userStatus = isUserSignedIn();
-    if (userStatus) {
-        let userBooks = await getDocs(query(books, orderBy("timestamp")));
-        let i = 0;
-        userBooks.forEach(book => {
-            let userBook = book.data();
-            console.log(userBook.author, userBook.title, userBook.pages, userBook.read);
-            createBookCard(userBook.author, userBook.title, userBook.pages, userBook.read, i)
-        });
-    }
-}
-// getUserBooks();
 
 initFirebaseAuth();
 
-function createBookCard(author, title, pages, read, i) {
+function createBookCard(id, author, title, pages, read, index) {
     const content = document.createElement('div');
     content.innerHTML = 'Title: ' + title + '<br><br>' + 'Author: ' + author + '<br><br>' + 'Pages: ' + pages + '<br><br>';
     content.classList.add('book');
-    content.dataset.childnum = i;
+    content.dataset.childnum = index;
+    content.setAttribute("id", id);
     containerCards.appendChild(content);
 
     // Create yes/no div
@@ -272,7 +283,7 @@ function createBookCard(author, title, pages, read, i) {
     removebtn.addEventListener('click', () => {
         let deleteNum = removebtn.parentElement.dataset.childnum;
         // myLibrary.splice(deleteNum, 1);
+        deleteBook(id);
         removebtn.parentElement.remove();
     });
-    i++;
 }
