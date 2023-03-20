@@ -141,11 +141,18 @@ async function getUserBooks() {
     }
 };
 
+async function updateBookInfo(id, readStatus) {
+    const bookRef = doc(books, id);
+    await updateDoc(bookRef, {
+        read: readStatus
+    })
+}
+
 // Delete a book from the firestore Database
 async function deleteBook(id) {
     const bookRef = doc(books, id);
-    deleteDoc(bookRef);
-}
+    await deleteDoc(bookRef);
+};
 
 // function to Display content in html
 function displayBooks() { 
@@ -269,9 +276,11 @@ function createBookCard(id, author, title, pages, read, index) {
         if (toggle.classList.contains('active')) {
             read = 'Yes';
             status.innerHTML = `Read : ${read} <br><br>`;
+            updateBookInfo(id, read);
         } else {
             read = 'No';
             status.innerHTML = `Read : ${read} <br><br>`;
+            updateBookInfo(id, read);
         };
     });
 
