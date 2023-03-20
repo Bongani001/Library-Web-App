@@ -9,15 +9,13 @@ import { getFirestore,
     addDoc,
     query,
     orderBy,
-    onSnapshot,
-    setDoc,
     updateDoc,
     doc,
     serverTimestamp, 
     getDocs,
     deleteDoc} from "firebase/firestore";
+import { getPerformance } from 'firebase/performance';
 import "./style.css";
-
 
 
 const firebaseApp = initializeApp({
@@ -247,6 +245,7 @@ let toggleBtn = '<div class=\"toggle-container">\
 
 initFirebaseAuth();
 
+
 function createBookCard(id, author, title, pages, read, index) {
     const content = document.createElement('div');
     content.innerHTML = 'Title: ' + title + '<br><br>' + 'Author: ' + author + '<br><br>' + 'Pages: ' + pages + '<br><br>';
@@ -268,7 +267,9 @@ function createBookCard(id, author, title, pages, read, index) {
     //innerCircle.classList.add('inner-circle');
     toggle.innerHTML = 'Update';
     //toggle.appendChild(innerCircle);
-    
+    if (read === "Yes") {
+        toggle.classList.toggle('active');
+    }
 
     toggle.addEventListener('click', () => {
         toggle.classList.toggle('active');
@@ -296,3 +297,5 @@ function createBookCard(id, author, title, pages, read, index) {
         removebtn.parentElement.remove();
     });
 }
+
+getPerformance();
