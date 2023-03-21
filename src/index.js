@@ -242,9 +242,7 @@ let toggleBtn = '<div class=\"toggle-container">\
 </div>\
 <br>'
 
-
 initFirebaseAuth();
-
 
 function createBookCard(id, author, title, pages, read, index) {
     const content = document.createElement('div');
@@ -253,6 +251,8 @@ function createBookCard(id, author, title, pages, read, index) {
     content.dataset.childnum = index;
     content.setAttribute("id", id);
     containerCards.appendChild(content);
+
+    
 
     // Create yes/no div
     let status = document.createElement('span');
