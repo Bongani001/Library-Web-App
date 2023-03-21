@@ -4,9 +4,18 @@ import { getAuth,
     GoogleAuthProvider,
     signInWithPopup,
     signOut, } from "firebase/auth";
-import { getFirestore, collection } from "firebase/firestore";
+import { getFirestore, 
+    collection,
+    addDoc,
+    query,
+    orderBy,
+    updateDoc,
+    doc,
+    serverTimestamp, 
+    getDocs,
+    deleteDoc} from "firebase/firestore";
+import { getPerformance } from 'firebase/performance';
 import "./style.css";
-
 
 
 const firebaseApp = initializeApp({
@@ -26,13 +35,13 @@ async function signIn() {
     // Sign in Firebase using popup auth and Google as the identity provider.
     var provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
-}
+};
 
 // Signs-out of Book Library.
 function signOutUser() {
     // Sign out of Firebase.
     signOut(auth);
-}
+};
 
 // Initialize firebase auth
 function initFirebaseAuth() {
@@ -43,10 +52,13 @@ function initFirebaseAuth() {
             logButton.textContent = "Logout";
             let userAccountName = getUserName();
             userName.textContent = userAccountName;
+            containerCards.innerHTML = '';
+            getUserBooks();
         } else {
             console.log("No user");
             logButton.textContent = "Login";
             userName.textContent = "";
+            containerCards.innerHTML = '';
         }
     });
 };
@@ -64,11 +76,16 @@ function isUserSignedIn() {
 const userName = document.querySelector(".user-name");
 const logButton = document.querySelector(".log-status-button");
 
+// Sign-In/Sign-Out button
 logButton.addEventListener("click", () => {
-    if (!isUserSignedIn) {
+    // console.log(!isUserSignedIn());
+    let userStatus = !isUserSignedIn();
+    if (userStatus) {
         signIn();
     } else {
         signOutUser();
+        containerCards.innerHTML = '';
+        window.open('https://mail.google.com/a/YOURDOMAIN.IN/?logout&hl=en','logout_from_google','width=600,height=300,menubar=no,status=no,location=no,toolbar=no,scrollbars=no,top=20,left=20');
     }
 });
 
@@ -82,9 +99,57 @@ function Book() {
 };
 
 function addBookToLibrary() {
-    const theBook = new Book();
-    myLibrary.push(theBook);
-    console.log(myLibrary);
+    let userStatus = isUserSignedIn();
+    if (userStatus) {
+        let theBook = new Book();
+        myLibrary.push(theBook);
+        // console.log(myLibrary);
+        console.log({...theBook});
+        saveBook(theBook);
+    } else {
+        alert("Login first before submitting your book information");
+    };
+};
+
+
+// Add/Save Book Information to the Firestore Database
+async function saveBook(bookData) {
+    try {
+        await addDoc(books, {
+          name: getUserName(),
+          ...bookData,
+          timestamp: serverTimestamp()
+        });
+      }
+      catch(error) {
+        console.error('Error writing new book information to Firebase Database', error);
+      }
+};
+
+async function getUserBooks() {
+    let userStatus = isUserSignedIn();
+    if (userStatus) {
+        let userBooks = await getDocs(query(books, orderBy("timestamp")));
+        let i = 0;
+        userBooks.forEach(book => {
+            let userBook = book.data();
+            createBookCard(book.id, userBook.author, userBook.title, userBook.pages, userBook.read, i)
+            i++;
+        });
+    }
+};
+
+async function updateBookInfo(id, readStatus) {
+    const bookRef = doc(books, id);
+    await updateDoc(bookRef, {
+        read: readStatus
+    })
+}
+
+// Delete a book from the firestore Database
+async function deleteBook(id) {
+    const bookRef = doc(books, id);
+    await deleteDoc(bookRef);
 };
 
 // function to Display content in html
@@ -144,16 +209,16 @@ let pages = document.querySelector('#pages');
 let read = document.querySelector('#read');
 
 let submit = document.querySelector('#info');
-submit.addEventListener('click', () => {
+submit.addEventListener('click', (e) => {
     let libraryLength = myLibrary['length'];
     if ((title.value && author.value && pages.value) === '') {
         return
     };
     addBookToLibrary();
     containerCards.innerHTML = '';
-    displayBooks(); // Display content in html
+    getUserBooks() // Display content in html
     formCompletion.style.display = 'none';
-    event.preventDefault(); // Prevent the form from submitting data
+    e.preventDefault(); // Prevent the form from submitting data
 });
 
 
@@ -178,3 +243,59 @@ let toggleBtn = '<div class=\"toggle-container">\
 <br>'
 
 initFirebaseAuth();
+
+function createBookCard(id, author, title, pages, read, index) {
+    const content = document.createElement('div');
+    content.innerHTML = 'Title: ' + title + '<br><br>' + 'Author: ' + author + '<br><br>' + 'Pages: ' + pages + '<br><br>';
+    content.classList.add('book');
+    content.dataset.childnum = index;
+    content.setAttribute("id", id);
+    containerCards.appendChild(content);
+
+    
+
+    // Create yes/no div
+    let status = document.createElement('span');
+    status.innerHTML = `Read: ${read} <br><br>`;
+    content.appendChild(status);
+
+    // Create an onclick event for toggle button
+    const toggle = document.createElement('div');
+    toggle.classList.add('toggle-container');
+    content.appendChild(toggle);
+    //const innerCircle = document.createElement('div');
+    //innerCircle.classList.add('inner-circle');
+    toggle.innerHTML = 'Update';
+    //toggle.appendChild(innerCircle);
+    if (read === "Yes") {
+        toggle.classList.toggle('active');
+    }
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        let nmbr = toggle.parentElement.dataset.childnum;
+        if (toggle.classList.contains('active')) {
+            read = 'Yes';
+            status.innerHTML = `Read : ${read} <br><br>`;
+            updateBookInfo(id, read);
+        } else {
+            read = 'No';
+            status.innerHTML = `Read : ${read} <br><br>`;
+            updateBookInfo(id, read);
+        };
+    });
+
+    // Create a remove button
+    const removebtn = document.createElement('button');
+    removebtn.classList.add('remove-btn');
+    removebtn.innerHTML = 'Remove';
+    content.appendChild(removebtn);
+    removebtn.addEventListener('click', () => {
+        let deleteNum = removebtn.parentElement.dataset.childnum;
+        // myLibrary.splice(deleteNum, 1);
+        deleteBook(id);
+        removebtn.parentElement.remove();
+    });
+}
+
+getPerformance();
